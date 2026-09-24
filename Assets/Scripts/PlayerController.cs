@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private float turnInput;
     private float currentRoll;
     private Quaternion baseRotation;
+    private bool controlsLocked;
 
     void Start()
     {
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(controlsLocked) return;
         // Turn (yaw only)
         Vector3 av = rb.angularVelocity;
         av.y = turnInput * turnSpeed * Mathf.Deg2Rad;
@@ -62,5 +64,17 @@ public class PlayerController : MonoBehaviour
         Vector3 vel = rb.linearVelocity;
         Vector3 sideways = Vector3.Project(vel, transform.right);
         rb.linearVelocity = vel - sideways * Mathf.Clamp01(grip * Time.fixedDeltaTime);
+    }
+
+    public void SetControlsLocked(bool locked)
+    {
+        controlsLocked = locked;
+        if(locked)
+        {
+            throttle = 0f;
+            turnInput = 0f;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
     }
 }

@@ -5,6 +5,7 @@ public class FishingInteraction : MonoBehaviour
 {
     public GameObject fishPromptText;   // Drag FishPromptText here
     public GameObject fishPromptImage;
+    public FishingMinigameController minigameController;
 
     private bool playerInRange;
 
@@ -38,7 +39,7 @@ public class FishingInteraction : MonoBehaviour
 
     void StartFishing()
     {
-        Debug.Log("Started fishing!");
+        minigameController.StartRandomMinigame();
         // Add your fishing logic here
     }
 }
