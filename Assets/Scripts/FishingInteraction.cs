@@ -9,6 +9,12 @@ public class FishingInteraction : MonoBehaviour
 
     private bool playerInRange;
 
+    void Awake()
+    {
+    if (minigameController == null)
+        minigameController = FishingMinigameController.Instance;
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -39,7 +45,7 @@ public class FishingInteraction : MonoBehaviour
 
     void StartFishing()
     {
-        minigameController.StartRandomMinigame();
+        minigameController.StartRandomMinigame(transform);
         // Add your fishing logic here
     }
 }

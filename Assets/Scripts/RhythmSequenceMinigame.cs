@@ -8,78 +8,81 @@ using UnityEngine.UI;
 public class RhythmSequenceMinigame : MonoBehaviour, IFishingMinigame
 {
     [System.Serializable]
-    public struct KeySprite
+    public struct KeySpriteSet
     {
         public Key key;
-        public Sprite sprite;
+        public Sprite unpressedSprite;
+        public Sprite pressedSprite;
     }
 
-    public Image promptImage;
-    public KeySprite[] keySprites;      // One entry per key, set in the Inspector
-    public int sequenceLength = 4;
+    public KeySpriteSet[] keySprites;   // One entry per possible key (W, A, S, D, Q, E)
+    public Image[] promptSlots;         // 5 fixed slots, left to right
     public float showTimePerKey = 0.5f;
-    public float inputTimeLimit = 4f;
+    public float gapBetweenKeys = 0.15f;
+    public float timePerInput = 1.2f;   // Time allowed per key once it's the player's turn
 
-    private Key[] possibleKeys;
-    private List<Key> sequence;
+    private Key[] sequence;
     private Action<bool> onComplete;
-
-    void Awake()
-    {
-        possibleKeys = new Key[keySprites.Length];
-        for (int i = 0; i < keySprites.Length; i++)
-            possibleKeys[i] = keySprites[i].key;
-    }
 
     public void StartGame(Action<bool> onComplete)
     {
         this.onComplete = onComplete;
-        sequence = new List<Key>();
-        for (int i = 0; i < sequenceLength; i++)
-            sequence.Add(possibleKeys[UnityEngine.Random.Range(0, possibleKeys.Length)]);
 
-        promptImage.gameObject.SetActive(false);
+        sequence = new Key[promptSlots.Length];
+        for (int i = 0; i < promptSlots.Length; i++)
+        {
+            sequence[i] = keySprites[UnityEngine.Random.Range(0, keySprites.Length)].key;
+            promptSlots[i].sprite = GetSprite(sequence[i], pressed: false);
+        }
+
         StartCoroutine(RunSequence());
     }
 
     IEnumerator RunSequence()
     {
-        yield return new WaitForSeconds(0.5f);
-
-        foreach (Key k in sequence)
+        // Show phase: flash each key in order so the player can memorize it
+        for (int i = 0; i < sequence.Length; i++)
         {
-            promptImage.gameObject.SetActive(true);
-            promptImage.sprite = GetSpriteForKey(k);
+            promptSlots[i].sprite = GetSprite(sequence[i], pressed: true);
             yield return new WaitForSeconds(showTimePerKey);
-            promptImage.gameObject.SetActive(false);
-            yield return new WaitForSeconds(0.15f); // brief gap between prompts
+            promptSlots[i].sprite = GetSprite(sequence[i], pressed: false);
+            yield return new WaitForSeconds(gapBetweenKeys);
         }
 
-        int index = 0;
-        float t = 0f;
-        while (index < sequence.Count)
+        // Input phase: player repeats the sequence in order
+        for (int i = 0; i < sequence.Length; i++)
         {
-            if (t > inputTimeLimit) { Finish(false); yield break; }
+            Key target = sequence[i];
 
-            foreach (Key k in possibleKeys)
+            float t = 0f;
+            bool hit = false;
+            while (t < timePerInput)
             {
-                if (Keyboard.current[k].wasPressedThisFrame)
-                {
-                    if (k == sequence[index]) index++;
-                    else { Finish(false); yield break; }
-                    break;
-                }
+                if (Keyboard.current[target].wasPressedThisFrame) { hit = true; break; }
+                t += Time.deltaTime;
+                yield return null;
             }
-            t += Time.deltaTime;
-            yield return null;
+
+            if (!hit)
+            {
+                Finish(false);
+                yield break;
+            }
+
+            promptSlots[i].sprite = GetSprite(target, pressed: true); // stays pressed
+            yield return null; // avoid double-counting the same keypress on a repeated key
         }
+
         Finish(true);
     }
 
-    Sprite GetSpriteForKey(Key key)
+    Sprite GetSprite(Key key, bool pressed)
     {
         foreach (var ks in keySprites)
-            if (ks.key == key) return ks.sprite;
+        {
+            if (ks.key == key)
+                return pressed ? ks.pressedSprite : ks.unpressedSprite;
+        }
         return null;
     }
 
