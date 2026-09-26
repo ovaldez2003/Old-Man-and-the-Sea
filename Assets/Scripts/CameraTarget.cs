@@ -8,5 +8,6 @@ public class CameraTarget : MonoBehaviour
     {
         transform.position = boat.position;
         transform.rotation = Quaternion.Euler(0f, boat.eulerAngles.y, 0f);
+        
     }
 }
