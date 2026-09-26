@@ -19,7 +19,7 @@ public class RhythmSequenceMinigame : MonoBehaviour, IFishingMinigame
     public Image[] promptSlots;         // 5 fixed slots, left to right
     public float showTimePerKey = 0.5f;
     public float gapBetweenKeys = 0.15f;
-    public float timePerInput = 1.2f;   // Time allowed per key once it's the player's turn
+    public float timePerInput = 1.2f;
 
     private Key[] sequence;
     private Action<bool> onComplete;
@@ -32,7 +32,7 @@ public class RhythmSequenceMinigame : MonoBehaviour, IFishingMinigame
         for (int i = 0; i < promptSlots.Length; i++)
         {
             sequence[i] = keySprites[UnityEngine.Random.Range(0, keySprites.Length)].key;
-            promptSlots[i].sprite = GetSprite(sequence[i], pressed: false);
+            promptSlots[i].enabled = false; // start hidden, nothing visible yet
         }
 
         StartCoroutine(RunSequence());
@@ -40,16 +40,18 @@ public class RhythmSequenceMinigame : MonoBehaviour, IFishingMinigame
 
     IEnumerator RunSequence()
     {
-        // Show phase: flash each key in order so the player can memorize it
+        // Show phase: reveal one key at a time, then hide it before the next appears
         for (int i = 0; i < sequence.Length; i++)
         {
             promptSlots[i].sprite = GetSprite(sequence[i], pressed: true);
+            promptSlots[i].enabled = true;
             yield return new WaitForSeconds(showTimePerKey);
-            promptSlots[i].sprite = GetSprite(sequence[i], pressed: false);
+
+            promptSlots[i].enabled = false;
             yield return new WaitForSeconds(gapBetweenKeys);
         }
 
-        // Input phase: player repeats the sequence in order
+        // Input phase: all slots stay hidden until the player earns them
         for (int i = 0; i < sequence.Length; i++)
         {
             Key target = sequence[i];
@@ -69,7 +71,8 @@ public class RhythmSequenceMinigame : MonoBehaviour, IFishingMinigame
                 yield break;
             }
 
-            promptSlots[i].sprite = GetSprite(target, pressed: true); // stays pressed
+            promptSlots[i].sprite = GetSprite(target, pressed: true);
+            promptSlots[i].enabled = true; // reveal as confirmation, stays visible
             yield return null; // avoid double-counting the same keypress on a repeated key
         }
 

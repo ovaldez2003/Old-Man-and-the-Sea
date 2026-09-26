@@ -18,8 +18,13 @@ public class FishingMinigameController : MonoBehaviour
         Instance = this;
     }
 
+    public bool IsBusy{ get; private set; }
+
     public void StartRandomMinigame(Transform lookTarget)
     {
+
+        if (IsBusy) return;
+
         List<GameObject> available = new List<GameObject>();
         if (qtePanel != null) available.Add(qtePanel);
         if (timingBarPanel != null) available.Add(timingBarPanel);
@@ -31,6 +36,7 @@ public class FishingMinigameController : MonoBehaviour
             return;
         }
 
+        IsBusy = true;
         StartCoroutine(RunFishingSequence(available, lookTarget));
     }
 
@@ -54,5 +60,6 @@ public class FishingMinigameController : MonoBehaviour
         panel.SetActive(false);
         player.SetControlsLocked(false);
         cameraController.ReturnToBoatView();
+        IsBusy = false;
     }
 }

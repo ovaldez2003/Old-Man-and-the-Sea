@@ -37,7 +37,12 @@ public class FishingInteraction : MonoBehaviour
 
     void Update()
     {
-        if (playerInRange && Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame)
+        bool busy = minigameController != null && minigameController.IsBusy;
+
+        fishPromptImage.SetActive(playerInRange && !busy);
+        fishPromptText.SetActive(playerInRange && !busy);
+
+        if (playerInRange && !busy && Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame)
         {
             StartFishing();
         }
