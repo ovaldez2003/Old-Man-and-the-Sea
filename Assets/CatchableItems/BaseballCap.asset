@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: BaseballCap
   m_EditorClassIdentifier: Assembly-CSharp::CatchableItem
   itemName: Baseball Cap
-  modelPrefab: {fileID: 919132149155446097, guid: 021d052b1e3b0294c8c4bf13b22aa7d0, type: 3}
-  dialogueLines: []
+  modelPrefab: {fileID: 4922395623162246200, guid: 22d399717c5ee0549b7a55d3408f4d1b, type: 3}
+  dialogueLines:
+  - I used to wear a hat like this all the time. I was the "hat kid" in school, always
+    wearing the same hat.
+  - 'Ever since I lost a really old hat of mine I stopped wearing hats. '
+  - This hat though, it reminds me so much of my old I might go back to it. Maybe
+    not right now though, that would be kind of a gross hat to wear after just pulling
+    it out of the water.

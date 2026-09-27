@@ -13,7 +13,8 @@ public class FishingMinigameController : MonoBehaviour
     public FishingCameraController cameraController;
     public float delayBeforeMinigame = 1f;
     public CatchDisplayController catchDisplay;
-    public DialogueController dialogueController;   // Seconds to wait after the camera swings
+    public DialogueController dialogueController; 
+    public EndGameController endGameController;  // Seconds to wait after the camera swings
 
     void Awake()
     {
@@ -72,13 +73,15 @@ public class FishingMinigameController : MonoBehaviour
                 {
                     dialogueController.StartDialogue(item.dialogueLines, () =>
                     {
-                        FinishFishing(spot);
+                        if (CatchProgressTracker.Instance.IsGameComplete)
+                            endGameController.Show();
+                        else
+                            FinishFishing(spot);
                     });
                 });
             }
             else
             {
-                // No catchable items configured, or list exhausted with no fallback
                 FinishFishing(spot);
             }
         }

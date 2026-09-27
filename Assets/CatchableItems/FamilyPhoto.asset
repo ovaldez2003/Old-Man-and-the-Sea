@@ -14,4 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CatchableItem
   itemName: Family Photo
   modelPrefab: {fileID: 6035164839299704247, guid: 40ab63d7a97005b49879e82ec7cacfe7, type: 3}
-  dialogueLines: []
+  dialogueLines:
+  - 'This photo, a mom, a dad, and a kid. They look familiar for some reason. '
+  - 'Like I know, or maybe knew, these people. Or I at the very least should know
+    them. '
+  - I need to hold onto this, take a closer, or maybe longer look at it. Something
+    feels empty when I look at it. Like it was once something that I held dear, a
+    piece of my home that I no... longer... remember...

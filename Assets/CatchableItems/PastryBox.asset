@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b470753b54ce932469c2c759655f968e, type: 3}
-  m_Name: Trophy
+  m_Name: PastryBox
   m_EditorClassIdentifier: Assembly-CSharp::CatchableItem
-  itemName: Trophy
-  modelPrefab: {fileID: 2145828347040088328, guid: b8607387fc943904384f5beea12b2702, type: 3}
+  itemName: Empty Box of Pastries
+  modelPrefab: {fileID: 6790975885763944086, guid: 7c7dae832b4293f4d98c3bf45ec5be59, type: 3}
   dialogueLines:
-  - Oh, big winner here! What is this trophy for, anyway, coolest fisherman? Probably
-    not...
-  - Back in my prime I played basketball at the league in my hometown. I remember
-    having quite a good team with some great friends...
+  - I wonder what these once were. Could've been anything.. blueberry muffins, chocolate
+    chip cookies, donuts.
+  - "I could go on but I won't because I'll get too hungry.\t"
+  - This box looks awfully familiar though. I wonder...

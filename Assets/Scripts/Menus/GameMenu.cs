@@ -10,6 +10,14 @@ public class GameMenu : MonoBehaviour
     public CinemachineCamera menuCamera;
     public CinemachineCamera playerCamera;
     public GameObject mainMenuUI;
+    public GameObject quitButton;
+
+    void Start()
+    {
+        #if UNITY_WEBGL
+            if (quitButton != null) quitButton.SetActive(false);
+        #endif
+    }
 
     public void Play()
     {
@@ -36,6 +44,10 @@ public class GameMenu : MonoBehaviour
 
     public void Quit()
     {
-        Application.Quit();
+        #if UNITY_WEBGL
+            Debug.Log("Quit is disabled in WebGL builds.");
+        #else
+            Application.Quit();
+        #endif
     }
 }

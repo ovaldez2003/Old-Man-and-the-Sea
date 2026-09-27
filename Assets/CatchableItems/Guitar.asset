@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b470753b54ce932469c2c759655f968e, type: 3}
+  m_Name: Guitar
+  m_EditorClassIdentifier: Assembly-CSharp::CatchableItem
+  itemName: Guitar
+  modelPrefab: {fileID: 1782445600872311063, guid: 97f7922cf48371241b9d4b25c3669613, type: 3}
+  dialogueLines:
+  - I'm surprised that this thing is still intact. Who knows how long it's been under
+    the water.
+  - I'm sure it's still unplayable. But if it was, I probably could take a break
+    and play a couple songs. I almost wish I could.
+  - My fingers are itching to play, as if I used to play all the time. Spend a night
+    at a bonfire with some friends, playing some songs. What a peaceful time that
+    would be...

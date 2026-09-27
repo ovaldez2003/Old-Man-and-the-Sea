@@ -14,4 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CatchableItem
   itemName: Necklace
   modelPrefab: {fileID: 8889831938266744460, guid: 31baef0d38981494f82cd3faa6dc8314, type: 3}
-  dialogueLines: []
+  dialogueLines:
+  - 'This necklace looks like it carries value. Not just monetary. I''m sure it hold
+    memories too. '
+  - 'Memories of the person who gave it. Like a grandparent giving it to a grandson
+    as a family heirloom. Many possibilities of what it could be. '
+  - That's... an oddly specific thought. Like there's some part of my subconcious
+    that remembers that happening.
+  - Strange. Let's keep looking.

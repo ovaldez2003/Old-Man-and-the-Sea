@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b470753b54ce932469c2c759655f968e, type: 3}
-  m_Name: Trophy
+  m_Name: SodaCan
   m_EditorClassIdentifier: Assembly-CSharp::CatchableItem
-  itemName: Trophy
-  modelPrefab: {fileID: 2145828347040088328, guid: b8607387fc943904384f5beea12b2702, type: 3}
+  itemName: Can of Soda
+  modelPrefab: {fileID: 3845759148844923123, guid: cef1470b48f27ff4ab836bc3bb74af06, type: 3}
   dialogueLines:
-  - Oh, big winner here! What is this trophy for, anyway, coolest fisherman? Probably
-    not...
-  - Back in my prime I played basketball at the league in my hometown. I remember
-    having quite a good team with some great friends...
+  - Woah, I haven't seen a smash cola can in forever. This was my favorite drink
+    back in the day.
+  - The last time I had one was... wait. When was the last time, and where?
+  - I feel like I'm grabbing for soemthing, a memory, that isn't there.

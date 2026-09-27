@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b470753b54ce932469c2c759655f968e, type: 3}
+  m_Name: Notebook
+  m_EditorClassIdentifier: Assembly-CSharp::CatchableItem
+  itemName: Notebook
+  modelPrefab: {fileID: 5960034880092928018, guid: 152a90e593889c741afc7c3418320489, type: 3}
+  dialogueLines:
+  - A notebook... and it's totally dry? Something is wrong here. Maybe there's something
+    in it that explains it.
+  - '"To whom it may concern." Any note that starts like that can''t be good.'
+  - '"There was once a town here. A thriving, joyful town, with all kinds of people
+    filling it''s streets."'
+  - '"As I''m sure you can tell, something happened. Something that, as I''m writing
+    this, I''m doing everything I can to prevent, but I fear the worst may come to
+    pass."'
+  - '"This town is soon to be swallowed up by water entirely. What will happen to
+    me, and the other inhabitants, I''m not sure. But I hope that whoever reads this
+    will remember."'
+  - '"Remember that this place used to be a home. A home that, hopefully, could one
+    day be restored. '
+  - 'This is a lot to take in... is this why I''ve had this sense of familiarity? '
+  - Maybe... this town under the lake was once... my home?
