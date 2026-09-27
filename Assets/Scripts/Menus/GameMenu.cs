@@ -22,12 +22,16 @@ public class GameMenu : MonoBehaviour
 
     public void Options()
     {
-        SceneManager.LoadScene(optionsSceneName);
+            mainMenuUI.SetActive(false);
+            MenuNavigation.onReturnFromOptions = () => mainMenuUI.SetActive(true);
+            SceneManager.LoadScene(optionsSceneName, LoadSceneMode.Additive);
     } 
 
     public void Tutorial()
     {
-        SceneManager.LoadScene(tutorialSceneName);
+        mainMenuUI.SetActive(false);
+        MenuNavigation.onReturnFromTutorial = () => mainMenuUI.SetActive(true);
+        SceneManager.LoadScene(tutorialSceneName, LoadSceneMode.Additive);
     }
 
     public void Quit()

@@ -15,14 +15,30 @@ public class RhythmSequenceMinigame : MonoBehaviour, IFishingMinigame
         public Sprite pressedSprite;
     }
 
-    public KeySpriteSet[] keySprites;   // One entry per possible key (W, A, S, D, Q, E)
-    public Image[] promptSlots;         // 5 fixed slots, left to right
+    public KeySpriteSet[] keySprites;
+    public Image[] promptSlots;
     public float showTimePerKey = 0.5f;
     public float gapBetweenKeys = 0.15f;
     public float timePerInput = 1.2f;
 
+    public bool loopDemo = false;       // Check this on the tutorial page's copy
+    public float pauseBetweenLoops = 1f;
+
     private Key[] sequence;
     private Action<bool> onComplete;
+    private Coroutine activeRoutine;
+
+    void OnEnable()
+    {
+        if (loopDemo)
+            activeRoutine = StartCoroutine(DemoLoop());
+    }
+
+    void OnDisable()
+    {
+        if (activeRoutine != null)
+            StopCoroutine(activeRoutine);
+    }
 
     public void StartGame(Action<bool> onComplete)
     {
@@ -32,26 +48,49 @@ public class RhythmSequenceMinigame : MonoBehaviour, IFishingMinigame
         for (int i = 0; i < promptSlots.Length; i++)
         {
             sequence[i] = keySprites[UnityEngine.Random.Range(0, keySprites.Length)].key;
-            promptSlots[i].enabled = false; // start hidden, nothing visible yet
+            promptSlots[i].enabled = false;
         }
 
-        StartCoroutine(RunSequence());
+        activeRoutine = StartCoroutine(RunSequence());
+    }
+
+    IEnumerator DemoLoop()
+    {
+        while (true)
+        {
+            Key[] demoSequence = new Key[promptSlots.Length];
+            for (int i = 0; i < promptSlots.Length; i++)
+            {
+                demoSequence[i] = keySprites[UnityEngine.Random.Range(0, keySprites.Length)].key;
+                promptSlots[i].enabled = false;
+            }
+
+            for (int i = 0; i < demoSequence.Length; i++)
+            {
+                promptSlots[i].sprite = GetSprite(demoSequence[i], pressed: true);
+                promptSlots[i].enabled = true;
+                yield return new WaitForSeconds(showTimePerKey);
+                promptSlots[i].enabled = false;
+                yield return new WaitForSeconds(gapBetweenKeys);
+            }
+
+            yield return new WaitForSeconds(pauseBetweenLoops);
+        }
     }
 
     IEnumerator RunSequence()
     {
-        // Show phase: reveal one key at a time, then hide it before the next appears
+        // Show phase
         for (int i = 0; i < sequence.Length; i++)
         {
             promptSlots[i].sprite = GetSprite(sequence[i], pressed: true);
             promptSlots[i].enabled = true;
             yield return new WaitForSeconds(showTimePerKey);
-
             promptSlots[i].enabled = false;
             yield return new WaitForSeconds(gapBetweenKeys);
         }
 
-        // Input phase: all slots stay hidden until the player earns them
+        // Input phase
         for (int i = 0; i < sequence.Length; i++)
         {
             Key target = sequence[i];
@@ -72,8 +111,8 @@ public class RhythmSequenceMinigame : MonoBehaviour, IFishingMinigame
             }
 
             promptSlots[i].sprite = GetSprite(target, pressed: true);
-            promptSlots[i].enabled = true; // reveal as confirmation, stays visible
-            yield return null; // avoid double-counting the same keypress on a repeated key
+            promptSlots[i].enabled = true;
+            yield return null;
         }
 
         Finish(true);
