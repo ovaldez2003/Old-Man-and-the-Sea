@@ -48,9 +48,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8391222552659086748, guid: 667aa8f1eda76b8419bf619061942e87, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -7029948723529949830, guid: 667aa8f1eda76b8419bf619061942e87, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 667aa8f1eda76b8419bf619061942e87, type: 3}
       propertyPath: m_Name
       value: Console
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 667aa8f1eda76b8419bf619061942e87, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
